@@ -95,6 +95,25 @@ public class Card {
         return (this.SUIT == trumpSuit || (this.RANK == 11 && this.leftSuit == trumpSuit));
     }
 
+    @Override
+    // EFFECTS: returns true if this and card have the same value and suit
+    public boolean equals(Object obj) {
+        if (obj == null || obj instanceof Card) {
+            return false;
+        }
+        Card that = (Card) obj;
+        if (this.SUIT == that.SUIT) {
+            return this.RANK == that.RANK;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int i = SUIT.hashCode()*10;
+        return i + RANK;
+    }
+
 
 
 /*
