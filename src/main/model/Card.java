@@ -98,7 +98,7 @@ public class Card {
     @Override
     // EFFECTS: returns true if this and card have the same value and suit
     public boolean equals(Object obj) {
-        if (obj == null || obj instanceof Card) {
+        if (obj == null || !(obj instanceof Card)) {
             return false;
         }
         Card that = (Card) obj;

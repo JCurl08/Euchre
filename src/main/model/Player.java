@@ -12,9 +12,12 @@ public class Player {
         hand = new Hand();
     }
 
+    // Getters
     public String getName() {
         return name;
     }
+
+    public Hand getHand() { return hand; }
 
     // REQUIRES: hand.size() <= MAX_HAND_SIZE
     public void dealCard(Card card) {

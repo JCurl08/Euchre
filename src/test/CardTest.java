@@ -85,4 +85,19 @@ public class CardTest {
         assertTrue(jc.beats(jh, Suit.SPADES));
         assertFalse(jh.beats(jc, Suit.SPADES));
     }
+
+    @Test
+    void testEquals() {
+        Card js2 = new Card(11, Suit.SPADES);
+        assertTrue(js.equals(js));
+        assertTrue(js.equals(js2));
+        assertTrue(js2.equals(js));
+
+        assertFalse(js.equals(jc));
+        assertFalse(jc.equals(js));
+        assertFalse(js.equals(as));
+        assertFalse(as.equals(js));
+        assertFalse(js.equals(nh));
+        assertFalse(nh.equals(js));
+    }
 }

@@ -11,9 +11,13 @@ public class Hand {
     //The cards in a players hand
     private List<Card> hand;
 
+    // Constructor
     public Hand() {
         hand = new ArrayList<>();
     }
+
+    // Getter
+    public List<Card> getHand() { return hand; }
 
     // REQUIRES: size() <= MAX_SIZE
     // MODIFIES: this
@@ -22,8 +26,21 @@ public class Hand {
         hand.add(card);
     }
 
+    // REQUIRES: hand.contains(card)
+    // MODIFIES: this
+    // EFFECTS: removes chosen card from hand and returns it
+    public Card play(Card card) {
+        hand.remove(card);
+        return card;
+    }
+
     // EFFECTS: returns the amount of cards in the hand
     public int size() {
         return hand.size();
+    }
+
+    // EFFECTS: returns true if a card is in hand
+    public boolean contains(Card card) {
+        return hand.contains(card);
     }
 }
