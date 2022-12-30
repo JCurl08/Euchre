@@ -16,9 +16,6 @@ public class Hand {
         hand = new ArrayList<>();
     }
 
-    // Getter
-    public List<Card> getHand() { return hand; }
-
     // REQUIRES: size() <= MAX_SIZE
     // MODIFIES: this
     // EFFECTS: adds card to hand
@@ -42,5 +39,23 @@ public class Hand {
     // EFFECTS: returns true if a card is in hand
     public boolean contains(Card card) {
         return hand.contains(card);
+    }
+
+    // EFFECTS: returns a list of cards of the given suit in hand, or returns the whole hand if there are no cards of
+    // that suit or if suit == null
+    public List<Card> getCardsOfSuit(Suit suit, Suit trump) {
+        if (suit == null) {
+            return hand;
+        }
+        List<Card> result = new ArrayList<>(hand);
+        for (Card c : hand) {
+            if (!c.isSuit(suit, trump)) {
+                result.remove(c);
+            }
+        }
+        if (result.size() == 0) {
+            result = hand;
+        }
+        return result;
     }
 }

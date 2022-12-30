@@ -17,6 +17,7 @@ public class CardTest {
     private Card jh;
     private Card jc;
     private Card ac;
+    private Card jd;
     private Card qd;
 
     @BeforeEach
@@ -28,6 +29,7 @@ public class CardTest {
         jh = new Card(11, Suit.HEARTS);
         jc = new Card(11, Suit.CLUBS);
         ac = new Card(14, Suit.CLUBS);
+        jd = new Card(11, Suit.DIAMONDS);
         qd = new Card(12, Suit.DIAMONDS);
     }
 
@@ -87,11 +89,21 @@ public class CardTest {
     }
 
     @Test
+    void testIsSuit() {
+        assertTrue(jc.isSuit(Suit.CLUBS, Suit.CLUBS));
+        assertFalse(jc.isSuit(Suit.SPADES, Suit.CLUBS));
+        assertTrue(jc.isSuit(Suit.SPADES, Suit.SPADES));
+        assertFalse(js.isSuit(Suit.CLUBS, Suit.SPADES));
+    }
+
+    @Test
     void testEquals() {
         Card js2 = new Card(11, Suit.SPADES);
         assertTrue(js.equals(js));
         assertTrue(js.equals(js2));
         assertTrue(js2.equals(js));
+
+        assertEquals(js.hashCode(), js2.hashCode());
 
         assertFalse(js.equals(jc));
         assertFalse(jc.equals(js));
@@ -99,5 +111,9 @@ public class CardTest {
         assertFalse(as.equals(js));
         assertFalse(js.equals(nh));
         assertFalse(nh.equals(js));
+
+        assertFalse(js.equals(null));
+        assertFalse(js.equals(11));
+        assertFalse(js.equals(Suit.SPADES));
     }
 }
