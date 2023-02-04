@@ -5,12 +5,13 @@ public class Player {
 
     private String name;
     private Hand hand;
-    private boolean dealer;
+    private boolean isDealer;
+    private int lifts;
 
     public Player(String name) {
         this.name = name;
         hand = new Hand();
-        dealer = false;
+        isDealer = false;
     }
 
     // Getters
@@ -20,9 +21,15 @@ public class Player {
 
     public Hand getHand() { return hand; }
 
+    public boolean getIsDealer() {
+        return isDealer;
+    }
+
+    public int getLifts() {return lifts;}
+
     // Setter
-    public void setDealer(boolean dealer) {
-        this.dealer = dealer;
+    public void setIsDealer(boolean dealer) {
+        this.isDealer = dealer;
     }
 
     // REQUIRES: hand.size() <= MAX_HAND_SIZE

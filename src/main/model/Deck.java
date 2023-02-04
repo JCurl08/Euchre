@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Deck {
     private static Deck instance;
-    private List<Card> deck;
+    private static List<Card> deck;
 
     private Deck() {
         shuffle();
@@ -39,5 +39,9 @@ public class Deck {
             }
         }
         Collections.shuffle(deck);
+    }
+
+    public static Card dealCard() {
+        return deck.remove(0);
     }
 }
