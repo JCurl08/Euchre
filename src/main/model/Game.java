@@ -1,50 +1,50 @@
 package src.main.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
-    private Deck deck = Deck.getInstance();
     private List<Player> players;
-    private Card kit;
-    private Player dealer;
+    private List<Integer> score;
+    private int dealer;
 
     // REQUIRES: players.size() == 3 or 4 && dealer in players
-    Game(List<Player> players, Player dealer) {
-        this.players = players;
-        this.dealer = dealer;
-        dealer.setIsDealer(true);
-        players.get((players.indexOf(dealer) - 1) % 4).setIsDealer(false);
-
-        for (int i = 0; i < 5; i++) {
-            for (int j = players.indexOf(dealer) + 1; j != players.indexOf(dealer); j++) {
-                if (j >= players.size()) {
-                    j = 0;
-                }
-                deck.dealCard(players.get(i));
-            }
+    public Game(List<Player> players) {
+        this.players = new ArrayList<>();
+        for (Player player : players) {
+            this.players.add(player);
         }
-        kit = deck.dealCard();
-    }
-
-    Game(List<Player> players) {
-        this(players, decideDealer(players));
-    }
-
-    private static Player decideDealer(List<Player> players) {
-        Player dealer;
-        int i;
-        Card card;
-        Card js = new Card(11, Suit.SPADES);
-        Card jc = new Card(11, Suit.CLUBS);
-        for (i = 0; true; i++) {
-            if (i == players.size()) {
-                i = 0;
-            }
-            card = Deck.dealCard();
-            if (card.equals(js) || card.equals(jc)) {
-                break;
-            }
+        int i = 1;
+        while (this.players.size() < 4) {
+            this.players.add(new Player("Com " + i));
+            i++;
         }
-        return players.get(i);
+
+        score = new ArrayList<>();
+        score.add(0);
+        score.add(0);
+        dealer = 0;
     }
+
+    public int getWinner() {
+        int i = 0;
+        for (Integer score : score) {
+            if (score >= 10) {
+                return i;
+            }
+            i++;
+        }
+        return -1;
+    }
+
+    public Round startNewRound() {
+        Round round = new Round(dealer);
+
+        dealer = (dealer + 1) % 4;
+        return round;
+    }
+
+//    Game(List<String> playerNames) {
+//        this(new ArrayList<>());
+//    }
 }

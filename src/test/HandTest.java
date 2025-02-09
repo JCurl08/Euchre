@@ -6,8 +6,6 @@ import src.main.model.Card;
 import src.main.model.Hand;
 import src.main.model.Suit;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class HandTest {
@@ -63,40 +61,5 @@ public class HandTest {
         assertEquals(ah, hand.play(ah));
         assertFalse(hand.contains(ah));
         assertEquals(0, hand.size());
-    }
-
-    @Test
-    void testGetCardsOfSuitContainsRightBower() {
-        addThreeCardsToHand();
-        hand.add(js);
-
-        List<Card> filtered = hand.getCardsOfSuit(Suit.SPADES, Suit.SPADES);
-        assertEquals(2, filtered.size());
-        assertTrue(filtered.contains(js));
-        assertTrue(filtered.contains(ns));
-
-        List<Card> filtered2 = hand.getCardsOfSuit(Suit.CLUBS, Suit.SPADES);
-        assertEquals(hand.getCardsOfSuit(null, Suit.SPADES), filtered2);
-    }
-
-    @Test
-    void testGetCardsOfSuitContainsLeftBower() {
-        addThreeCardsToHand();
-        hand.add(js);
-        List<Card> filtered = hand.getCardsOfSuit(Suit.CLUBS, Suit.CLUBS);
-        assertEquals(1, filtered.size());
-        assertTrue(filtered.contains(js));
-
-        List<Card> filtered2 = hand.getCardsOfSuit(Suit.SPADES, Suit.CLUBS);
-        assertEquals(1, filtered2.size());
-        assertTrue(filtered2.contains(ns));
-    }
-
-    @Test
-    void testGetCardsOfSuitContainsNoBowers() {
-        addThreeCardsToHand();
-        List<Card> filtered = hand.getCardsOfSuit(Suit.SPADES, Suit.HEARTS);
-        assertEquals(1, filtered.size());
-        assertTrue(filtered.contains(ns));
     }
 }

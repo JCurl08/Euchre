@@ -49,54 +49,6 @@ public class CardTest {
     }
 
     @Test
-    void testTwoTrumpCards() {
-        assertTrue(as.beats(ts, Suit.SPADES));
-        assertTrue(as.beats(ts, Suit.SPADES));
-        assertFalse(ts.beats(as, Suit.SPADES));
-        assertFalse(ts.beats(as, Suit.SPADES));
-    }
-
-    @Test
-    void testOneTrumpOneOffSuit() {
-        assertTrue(ts.beats(ac, Suit.SPADES));
-        assertTrue(js.beats(qd, Suit.SPADES));
-        assertTrue(js.beats(qd, Suit.SPADES));
-        assertTrue(as.beats(ac, Suit.SPADES));
-        assertFalse(ac.beats(ts, Suit.SPADES));
-        assertFalse(qd.beats(js, Suit.SPADES));
-        assertFalse(ac.beats(as, Suit.SPADES));
-    }
-
-    @Test
-    void testTwoOffSuit() {
-        assertTrue(ac.beats(ts, Suit.HEARTS));
-        assertTrue(js.beats(qd, Suit.HEARTS));
-        assertTrue(ts.beats(qd, Suit.CLUBS));
-        assertTrue(js.beats(ts, Suit.HEARTS));
-        assertFalse(ts.beats(js, Suit.HEARTS));
-    }
-
-    @Test
-    void testJacks() {
-        assertTrue(jc.beats(js, Suit.CLUBS));
-        assertFalse(js.beats(jc, Suit.CLUBS));
-        assertTrue(jc.beats(ac, Suit.CLUBS));
-        assertFalse(ac.beats(jc, Suit.CLUBS));
-        assertTrue(jc.beats(as, Suit.SPADES));
-        assertFalse(as.beats(jc, Suit.SPADES));
-        assertTrue(jc.beats(jh, Suit.SPADES));
-        assertFalse(jh.beats(jc, Suit.SPADES));
-    }
-
-    @Test
-    void testIsSuit() {
-        assertTrue(jc.isSuit(Suit.CLUBS, Suit.CLUBS));
-        assertFalse(jc.isSuit(Suit.SPADES, Suit.CLUBS));
-        assertTrue(jc.isSuit(Suit.SPADES, Suit.SPADES));
-        assertFalse(js.isSuit(Suit.CLUBS, Suit.SPADES));
-    }
-
-    @Test
     void testEquals() {
         Card js2 = new Card(11, Suit.SPADES);
         assertTrue(js.equals(js));

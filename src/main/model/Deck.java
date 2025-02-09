@@ -1,47 +1,38 @@
 package src.main.model;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+import java.util.Stack;
 
 public class Deck {
-    private static Deck instance;
-    private static List<Card> deck;
+    public Stack<Card> cards;
 
-    private Deck() {
+    public Deck() {
         shuffle();
-    }
-
-    public static Deck getInstance() {
-        if (instance == null) {
-            instance = new Deck();
-        }
-        return instance;
     }
 
     // EFFECTS: returns the size of hand
     public int size() {
-        return deck.size();
+        return cards.size();
     }
 
     // REQUIRES: deck not empty
     // MODIFIES: this and player
     // EFFECTS: removes card from deck and adds it to player's hand
     public void dealCard(Player player) {
-        player.dealCard(deck.remove(0));
+        player.dealCard(cards.pop());
     }
 
     public void shuffle() {
-        deck = new ArrayList<>();
+        cards = new Stack<>();
         for (Suit suit : Suit.values()) {
             for (int value = 9; value <= 14; value++) {
-                deck.add(new Card(value, suit));
+                cards.add(new Card(value, suit));
             }
         }
-        Collections.shuffle(deck);
+        Collections.shuffle(cards);
     }
 
-    public static Card dealCard() {
-        return deck.remove(0);
+    public Card dealCard() {
+        return cards.pop();
     }
 }

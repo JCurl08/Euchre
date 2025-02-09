@@ -1,54 +1,98 @@
 package src.main.ui;
 
+import src.main.model.Game;
+import src.main.model.Player;
+import src.main.model.Round;
+import src.main.ui.pages.GamePage;
+import src.main.ui.pages.MainPage;
+
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.EventListener;
+import java.util.List;
 
 // Executable Euchre App class
-public class EuchreApp extends JFrame implements ActionListener {
+public class EuchreApp extends JFrame implements EventListener {
 
     // Contains components for mainMenu
-    static MainMenu mainMenu;
+    CardLayout cardLayout;
+    JPanel panelContainer;
+    private Game game;
 
     // EuchreApp constructor
     EuchreApp() {
-        super("Euchre");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setPreferredSize(new Dimension(800, 800));
-        ((JPanel) getContentPane()).setBorder(new EmptyBorder(13, 13, 13, 13));
-        setLayout(new FlowLayout());
-        runEuchreApp();
-    }
+        super("Euchre App");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(400, 300);
 
-    // initiates and runs EuchreApp
-    private void runEuchreApp() {
-        initiate();
-        mainMenu = new MainMenu(this);
-        mainMenu.loadScreen(this);
-        pack();
-        setLocationRelativeTo(null);
+        cardLayout = new CardLayout();
+        panelContainer = new JPanel(cardLayout);
+        initiateMainPage();
+        add(panelContainer);
         setVisible(true);
     }
 
-    // Initiates app and sets destination for saved files
-    private void initiate() {
-        Scanner input = new Scanner(System.in);
-        input.useDelimiter("\n");
+    private void initiateMainPage() {
+        MainPage mainPage = new MainPage();
+
+        panelContainer.add(mainPage, "MainPage");
+
+        JButton playButton = new JButton("Play");
+        JButton exitButton = new JButton("Exit");
+
+        mainPage.add(playButton);
+        mainPage.add(exitButton);
+
+        playButton.addActionListener(e -> initiateGamePage());
+        exitButton.addActionListener(e -> System.exit(0));
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String event = e.getActionCommand();
-        if (event.equals("EXIT")) {
-            System.exit(0);
-        } else if (event.equals("NEW GAME")) {
-            mainMenu.clearComponents(this);
-            pack();
-            setLocationRelativeTo(null);
-            setVisible(true);
+    private void startGame(List<String> playerNames) {
+        List<Player> players = new ArrayList<>();
+        for (String name : playerNames) {
+            players.add(new Player(name));
+        }
+        game = new Game(players);
+
+        while (game.getWinner() < 0) {
+            Round round = game.startNewRound();
+            displayRound(round);
+            while (!round.isOver()) {
+                break;
+            }
+            break;
         }
     }
+
+    private void displayRound(Round round) {
+        RoundPage roundPage = new RoundPage(round);
+        panelContainer.add(roundPage, "RoundPage");
+        roundPage.initiateComponents();
+        cardLayout.show(panelContainer, "RoundPage");
+
+    }
+
+    private void initiateGamePage() {
+        GamePage gamePage = new GamePage();
+        panelContainer.add(gamePage, "GamePage");
+        for (int i = 0; i < 4; i++) {
+            JTextField player = new JTextField("Player " + i);
+            gamePage.add(player);
+        }
+        JButton submitButton = new JButton("Submit");
+        JButton backButton = new JButton("Back");
+
+        submitButton.addActionListener(e -> startGame(gamePage.getPlayerNames()));
+        backButton.addActionListener(e -> initiateMainPage());
+
+        gamePage.add(submitButton);
+        gamePage.add(backButton);
+
+        cardLayout.show(panelContainer, "GamePage");
+    }
+
+//    public void addActionListener(JButton button, String name) {
+//        button.addActionListener(e -> cardLayout.show(panelContainer, name));
+//    }
 }
