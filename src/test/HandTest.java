@@ -2,9 +2,9 @@ package src.test;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import src.main.model.Card;
+import src.main.model.Card.Card;
 import src.main.model.Hand;
-import src.main.model.Suit;
+import src.main.model.Card.Suit;
 
 import static org.junit.jupiter.api.Assertions.*;
 

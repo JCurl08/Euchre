@@ -1,4 +1,4 @@
-package src.main.model;
+package src.main.model.Card;
 
 // A card from a standard deck of cards
 public class Card {

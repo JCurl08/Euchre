@@ -1,5 +1,7 @@
 package src.main.model;
 
+import src.main.model.Card.Card;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,11 @@ public class Round {
     private List<Hand> hands;
     private int dealer;
     private Card kit;
+
+    private GameState gameState;
+    private int turn;
+
+    private List<Card> cardsPlaied;
 
     public Round(int dealer) {
         hands = new ArrayList<>();
@@ -21,6 +28,7 @@ public class Round {
             }
         }
         kit = deck.dealCard();
+        turn = dealer + 1 % 4;
     }
 
     public boolean isOver() {

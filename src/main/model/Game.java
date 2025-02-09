@@ -44,6 +44,10 @@ public class Game {
         return round;
     }
 
+    public List<Player> getPlayers() {
+        return players;
+    }
+
 //    Game(List<String> playerNames) {
 //        this(new ArrayList<>());
 //    }

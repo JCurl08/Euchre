@@ -1,5 +1,8 @@
 package src.main.model;
 
+import src.main.model.Card.Card;
+import src.main.model.Card.Suit;
+
 import java.util.Collections;
 import java.util.Stack;
 

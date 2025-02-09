@@ -5,6 +5,7 @@ import src.main.model.Player;
 import src.main.model.Round;
 import src.main.ui.pages.GamePage;
 import src.main.ui.pages.MainPage;
+import src.main.ui.pages.RoundPage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +19,7 @@ public class EuchreApp extends JFrame implements EventListener {
     // Contains components for mainMenu
     CardLayout cardLayout;
     JPanel panelContainer;
-    private Game game;
+    private static Game game;
 
     // EuchreApp constructor
     EuchreApp() {
@@ -70,7 +71,6 @@ public class EuchreApp extends JFrame implements EventListener {
         panelContainer.add(roundPage, "RoundPage");
         roundPage.initiateComponents();
         cardLayout.show(panelContainer, "RoundPage");
-
     }
 
     private void initiateGamePage() {
@@ -90,6 +90,10 @@ public class EuchreApp extends JFrame implements EventListener {
         gamePage.add(backButton);
 
         cardLayout.show(panelContainer, "GamePage");
+    }
+
+    public static Game getGame() {
+        return game;
     }
 
 //    public void addActionListener(JButton button, String name) {
