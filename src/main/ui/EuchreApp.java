@@ -17,8 +17,8 @@ import java.util.List;
 public class EuchreApp extends JFrame implements EventListener {
 
     // Contains components for mainMenu
-    CardLayout cardLayout;
-    JPanel panelContainer;
+    private static CardLayout cardLayout;
+    private static JPanel panelContainer;
     private static Game game;
 
     // EuchreApp constructor
@@ -55,18 +55,11 @@ public class EuchreApp extends JFrame implements EventListener {
             players.add(new Player(name));
         }
         game = new Game(players);
-
-        while (game.getWinner() < 0) {
-            Round round = game.startNewRound();
-            displayRound(round);
-            while (!round.isOver()) {
-                break;
-            }
-            break;
-        }
+        displayNewRound();
     }
 
-    private void displayRound(Round round) {
+    public static void displayNewRound() {
+        Round round = game.startNewRound();
         RoundPage roundPage = RoundPage.getInstance(round);
         panelContainer.add(roundPage, "RoundPage");
         roundPage.initiateComponents();

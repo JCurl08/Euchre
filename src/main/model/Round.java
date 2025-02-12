@@ -28,6 +28,9 @@ public class Round {
     // the trump suit for the round
     private Suit trump;
 
+    // the player that made the bit
+    private int bitPlayer;
+
     public Round(int dealer) {
         hands = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
@@ -64,10 +67,28 @@ public class Round {
     public void orderUp() {
         hands.get(dealer).add(kit);
         trump = kit.getSuit();
+        bitPlayer = turn;
         turn = dealer;
     }
 
     public void playCard(Card card, int player) {
 
+    }
+
+    // Returns false if the dealer passes on the second round of bids
+    public boolean passBid() {
+        if (turn == dealer) {
+            if (gameState == GameState.BID_KIT_DOWN) {
+                return false;
+            } else {
+                gameState = GameState.BID_KIT_DOWN;
+            }
+        }
+        turn = (turn + 1) % 4;
+        return true;
+    }
+
+    public int getDealer() {
+        return dealer;
     }
 }

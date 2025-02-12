@@ -24,11 +24,13 @@ public class PlayFieldComponent extends JComponent {
         }
     }
 
-    public void startPlayField() {
+    public void clearKit() {
         this.removeAll();
         this.setLayout(new GridLayout(3, 3));
         for (int i = 0; i < 9; i++) {
             add(new JPanel());
         }
+        revalidate();
+        repaint();
     }
 }

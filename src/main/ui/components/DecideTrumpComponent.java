@@ -25,4 +25,11 @@ public class DecideTrumpComponent extends JPanel {
         add(noButton);
         add(yesAloneButton);
     }
+
+    @Override
+    public void removeAll() {
+        super.removeAll();
+        revalidate();
+        repaint();
+    }
 }

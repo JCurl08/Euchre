@@ -24,8 +24,6 @@ public class RoundPage extends JPanel {
     private RoundPage(Round round) {
         this.round = round;
         setLayout(new GridLayout(3, 3));
-
-        setBackground(Color.BLACK);
     }
 
     public static RoundPage getInstance(Round round) {
@@ -40,14 +38,23 @@ public class RoundPage extends JPanel {
     public static void orderUp(boolean orderUp) {
         if (orderUp) {
             instance.orderUp();
+        } else {
+            instance.nextTurn();
+        }
+    }
+
+    private void nextTurn() {
+        boolean nextPlayer = round.passBid();
+        if (!nextPlayer) {
+
+            EuchreApp.displayNewRound();
         }
     }
 
     private void orderUp() {
         round.orderUp();
-        playFieldComponent.startPlayField();
+        playFieldComponent.clearKit();
         decideTrumpComponent.removeAll();
-        repaint();
     }
 
     public static void goAlone() {
