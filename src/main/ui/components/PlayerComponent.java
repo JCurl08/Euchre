@@ -1,18 +1,18 @@
 package src.main.ui.components;
 
-import src.main.model.Player;
-
 import javax.swing.*;
 import java.awt.*;
 
 public class PlayerComponent extends JComponent {
-    private Player player;
+    private int player;
+    private String playerName;
     private JTextArea liftsComponent;
-    public PlayerComponent(Player player) {
+    public PlayerComponent(int player, String playerName) {
         this.player = player;
+        this.playerName = playerName;
 
         setLayout(new GridLayout(2, 1));
-        add(new JTextArea(player.getName()));
+        add(new JTextArea(this.playerName));
         liftsComponent = new JTextArea("Lifts: 0");
         add(liftsComponent);
     }

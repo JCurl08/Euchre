@@ -2,7 +2,6 @@ package src.main.ui.pages;
 
 import src.main.model.Card.Card;
 import src.main.model.Hand;
-import src.main.model.Player;
 import src.main.model.Round;
 import src.main.ui.EuchreApp;
 import src.main.ui.components.DecideTrumpComponent;
@@ -54,8 +53,8 @@ public class RoundPage extends JPanel {
     public static void goAlone() {
     }
 
-    public static void playCard(Card card, Player player) {
-
+    public static void playCard(Card card, int player) {
+        instance.round.playCard(card, player);
     }
 
     public void initiateComponents() {
@@ -63,7 +62,7 @@ public class RoundPage extends JPanel {
         handComponents = new ArrayList<>();
         int i = 0;
         for (Hand hand : hands) {
-            handComponents.add(new HandComponent(hand, EuchreApp.getGame().getPlayers().get(i)));
+            handComponents.add(new HandComponent(hand, i, EuchreApp.getGame().getPlayers().get(i).getName()));
             i++;
         }
         scoreComponent = new ScoreComponent(0, 0);

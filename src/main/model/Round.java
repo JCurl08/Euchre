@@ -64,5 +64,10 @@ public class Round {
     public void orderUp() {
         hands.get(dealer).add(kit);
         trump = kit.getSuit();
+        turn = dealer;
+    }
+
+    public void playCard(Card card, int player) {
+
     }
 }
