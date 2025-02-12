@@ -1,19 +1,32 @@
 package src.main.model;
 
 import src.main.model.Card.Card;
+import src.main.model.Card.Suit;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Round {
+    // Player Hands
     private List<Hand> hands;
+
+    // index of the dealer
     private int dealer;
+
+    // the kit (set during the first game state)
     private Card kit;
 
+    // Enum representing different game states
     private GameState gameState;
+
+    // index representing who's turn it is
     private int turn;
 
+    // cards played in a single lift
     private List<Card> cardsPlaied;
+
+    // the trump suit for the round
+    private Suit trump;
 
     public Round(int dealer) {
         hands = new ArrayList<>();
@@ -46,5 +59,10 @@ public class Round {
 
     public Card getKit() {
         return kit;
+    }
+
+    public void orderUp() {
+        hands.get(dealer).add(kit);
+        trump = kit.getSuit();
     }
 }

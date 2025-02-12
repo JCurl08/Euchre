@@ -1,9 +1,10 @@
 package src.main.ui.pages;
 
+import src.main.model.Card.Card;
 import src.main.model.Hand;
+import src.main.model.Player;
 import src.main.model.Round;
 import src.main.ui.EuchreApp;
-import src.main.ui.components.CardComponent;
 import src.main.ui.components.DecideTrumpComponent;
 import src.main.ui.components.HandComponent;
 import src.main.ui.components.ScoreComponent;
@@ -14,17 +15,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoundPage extends JPanel {
+    private static RoundPage instance;
     private Round round;
     private List<HandComponent> handComponents;
     private ScoreComponent scoreComponent;
     private DecideTrumpComponent decideTrumpComponent;
-    private CardComponent kitComponent;
+    private PlayFieldComponent playFieldComponent;
 
-    public RoundPage(Round round) {
+    private RoundPage(Round round) {
         this.round = round;
         setLayout(new GridLayout(3, 3));
 
         setBackground(Color.BLACK);
+    }
+
+    public static RoundPage getInstance(Round round) {
+        RoundPage.instance = new RoundPage(round);
+        return instance;
+    }
+
+    public static RoundPage getInstance() {
+        return instance;
+    }
+
+    public static void orderUp(boolean orderUp) {
+        if (orderUp) {
+            instance.orderUp();
+        }
+    }
+
+    private void orderUp() {
+        round.orderUp();
+        playFieldComponent.startPlayField();
+        decideTrumpComponent.removeAll();
+        repaint();
+    }
+
+    public static void goAlone() {
+    }
+
+    public static void playCard(Card card, Player player) {
+
     }
 
     public void initiateComponents() {
@@ -36,8 +67,8 @@ public class RoundPage extends JPanel {
             i++;
         }
         scoreComponent = new ScoreComponent(0, 0);
-        decideTrumpComponent = new DecideTrumpComponent();
-        kitComponent = new CardComponent(round.getKit());
+        decideTrumpComponent = new DecideTrumpComponent(this);
+        playFieldComponent = new PlayFieldComponent(round.getKit());
 
         addComponents();
     }
@@ -48,7 +79,7 @@ public class RoundPage extends JPanel {
         add(scoreComponent);
 
         add(handComponents.get(1));
-        add(kitComponent);
+        add(playFieldComponent);
         add(handComponents.get(3));
 
         add(new JPanel());

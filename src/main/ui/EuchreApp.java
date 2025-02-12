@@ -67,7 +67,7 @@ public class EuchreApp extends JFrame implements EventListener {
     }
 
     private void displayRound(Round round) {
-        RoundPage roundPage = new RoundPage(round);
+        RoundPage roundPage = RoundPage.getInstance(round);
         panelContainer.add(roundPage, "RoundPage");
         roundPage.initiateComponents();
         cardLayout.show(panelContainer, "RoundPage");
